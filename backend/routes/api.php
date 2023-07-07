@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GetRegions;
+use App\Http\Controllers\GetSpeciesByRegion;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/regions', [GetRegions::class, 'index']);
+Route::get('/getspecies', [GetSpeciesByRegion::class, 'index']);
