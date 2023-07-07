@@ -20,4 +20,19 @@ class IucnRedListService
             'base_uri' => self::URL . self::VERSION_API . '/',
         ]);
     }
+
+    /**
+     * Get all regions
+     * @return array
+     */
+    public function getRegions(): array
+    {
+        $response = $this->client->request('GET', 'region/list', [
+            'query' => [
+                'token' => self::TOKEN,
+            ],
+        ]);
+
+        return json_decode($response->getBody()->getContents(), true);
+    }
 }
