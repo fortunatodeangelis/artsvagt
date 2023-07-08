@@ -19,6 +19,12 @@ const useStyles = createStyles((theme) => ({
       marginLeft: 'auto',
     },
   },
+  link: {
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+    '&hover': {
+      color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+    },
+  },
 }));
 
 export default useStyles;
