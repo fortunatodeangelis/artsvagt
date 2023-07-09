@@ -131,4 +131,32 @@ class IucnRedListService
 
         return $result;
     }
+
+    /**
+     * Get threats by species id
+     * @param int $speciesId
+     * @return array
+     */
+    public function getThreatsBySpeciesId(int $speciesId, string $region): array
+    {
+        $result = [
+            'data' => '',
+            'id' => $speciesId,
+            'region_identifier' => $region,
+        ];
+
+        $response = $this->client->request('GET', 'threats/species/id/' . $speciesId . '/region/' . $region, [
+            'query' => [
+                'token' => self::TOKEN,
+            ],
+        ]);
+
+        $response = json_decode($response->getBody()->getContents(), true);
+
+        foreach ($response['result'] as $key => $value) {
+            $result['data'] .= $value['code'] . ' - ' . $value['title'] . '\n';
+        }
+
+        return $result;
+    }
 }
