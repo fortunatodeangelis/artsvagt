@@ -17,10 +17,7 @@ function DrawerSpecies({
   taxonId,
 }: DrawerSpeciesProps) {
   const [opened, { open, close }] = useDisclosure(openDrawer);
-
   const { data, loading, error } = useFetchThreatSpecies(region, taxonId || 0);
-
-  console.log(region, taxonId);
 
   useEffect(() => {
     if (openDrawer) {
