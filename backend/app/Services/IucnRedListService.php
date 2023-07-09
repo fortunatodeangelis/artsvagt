@@ -61,7 +61,13 @@ class IucnRedListService
     public function getAllSpeciesByRegion(string $region): array
     {
         $numPages = $this->getNumPageForRegionalAssessments($region);
-        $species = [];
+        $species = [
+            'result' => [],
+            'count' => 0,
+            'region_identifier' => $region,
+            'page' => 0,
+        ];
+
         for ($i = 0; $i < $numPages; $i++) {
             $response = $this->client->request('GET', 'species/region/' . $region . '/page/' . $i, [
                 'query' => [
@@ -69,7 +75,8 @@ class IucnRedListService
                 ],
             ]);
             $result = json_decode($response->getBody()->getContents(), true);
-            $species = array_merge($species, $result['result']);
+            $species['result'] = array_merge($species['result'], $result['result']);
+            $species['count'] += $result['count'];
         }
         return $species;
     }
@@ -80,7 +87,7 @@ class IucnRedListService
      * @param int $page
      * @return array
      */
-    public function getSpeciesByRegion(string $region, int $page = 0): array
+    public function getSpeciesByRegion(string $region, int $page = 0, string $category, string $class): array
     {
         // Get number of pages for a specific region
         $numPages = $this->getNumPageForRegionalAssessments($region);
@@ -88,6 +95,26 @@ class IucnRedListService
         // Check if page is valid
         if ($page < 0 || $page >= $numPages) {
             return [];
+        }
+
+        // Check if category or class is not empty or != 'all'
+        if (!empty($category) && $category != 'all' || !empty($class) && $class != 'all') {
+
+            $allSpecies = $this->getAllSpeciesByRegion($region);
+
+            foreach ($allSpecies['result'] as $key => $value) {
+                if (!empty($category) && $category != 'all' && $value['category'] != $category) {
+                    unset($allSpecies['result'][$key]);
+                }
+                if (!empty($class) && $class != 'all' && $value['class_name'] != $class) {
+                    unset($allSpecies['result'][$key]);
+                }
+            }
+
+            $allSpecies['count'] = count($allSpecies['result']);
+            $allSpecies['result'] = array_values($allSpecies['result']);
+
+            return $allSpecies;
         }
 
         // Get species for a specific region

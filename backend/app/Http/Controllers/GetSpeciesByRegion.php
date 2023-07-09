@@ -18,7 +18,9 @@ class GetSpeciesByRegion extends Controller
         // Validate the request
         $validator = Validator::make($request->all(), [
             'region' => 'required|string',
-            'page' => 'integer'
+            'page' => 'integer',
+            'category' => 'string|nullable',
+            'class' => 'string|nullable',
         ]);
 
         if ($validator->fails()) {
@@ -33,7 +35,12 @@ class GetSpeciesByRegion extends Controller
             return response()->json(['error' => 'Invalid region'], 400);
         }
 
-        $response = $this->iucnService->getSpeciesByRegion($request->region, $request->page ?? 0);
+        $response = $this->iucnService->getSpeciesByRegion(
+            $request->region,
+            $request->page ?? 0,
+            $request->category ?? 'all',
+            $request->class ?? 'all'
+        );
 
         if (empty($response)) {
             return response()->json(['error' => 'No species found'], 404);
