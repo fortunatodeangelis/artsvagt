@@ -49,7 +49,7 @@ function TableSpecies({ region, handleOpenDrawer }: TableSpeciesProps) {
 
   const selectCategory = Object.entries(category).map(([key, value]) => ({
     value: key,
-    label: value.text,
+    label: (value as { text: string }).text,
   }));
 
   selectCategory.unshift({ value: 'all', label: 'All' });
