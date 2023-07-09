@@ -1,5 +1,5 @@
 export type SpeciesType = {
-  taxonid: number;
+  taxonId: number;
   class_name: string;
   scientific_name: string;
   category: string;
