@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from '../api';
 
-const useFetchSpecies = (region: string, page: number = 0) => {
+const useFetchSpecies = (region: string, page: number = 0, category: string, className: string) => {
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -10,7 +10,7 @@ const useFetchSpecies = (region: string, page: number = 0) => {
     const fetchTableData = async () => {
       try {
         setLoading(true);
-        const response = await api.getSpecies(region, page);
+        const response = await api.getSpecies(region, page, category, className);
         setData(response);
         setLoading(false);
       } catch (error) {
@@ -20,7 +20,7 @@ const useFetchSpecies = (region: string, page: number = 0) => {
     };
 
     fetchTableData();
-  }, [region, page]);
+  }, [region, page, category, className]);
 
   return { data, loading, error };
 };
