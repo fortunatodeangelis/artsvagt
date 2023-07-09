@@ -12,9 +12,10 @@ interface RegionProps extends UnstyledButtonProps {
   image: string;
   name: string;
   identifier: string;
+  readonly?: boolean;
 }
 
-export function Region({ name, identifier, image }: RegionProps) {
+export function Region({ name, identifier, image, readonly }: RegionProps) {
   const { classes } = useStyles();
 
   return (
@@ -30,7 +31,7 @@ export function Region({ name, identifier, image }: RegionProps) {
             {identifier}
           </Text>
         </div>
-        <ChevronRight size="0.9rem" />
+        { !readonly && <ChevronRight size="0.9rem" />}
       </Group>
     </UnstyledButton>
   );
