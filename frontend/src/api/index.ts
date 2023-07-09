@@ -3,7 +3,7 @@ import axios from 'axios';
 const api = {
   getRegions: async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/regions', {});
+      const response = await axios.get('https://artsvagt.fortunatodeangelis.dev/api/regions', {});
       return response.data;
     } catch (error) {
       return error;
@@ -17,7 +17,7 @@ const api = {
   ) => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/getspecies?region=${region}&page=${page}&category=${category}&class=${className}`,
+        `https://artsvagt.fortunatodeangelis.dev/api/getspecies?region=${region}&page=${page}&category=${category}&class=${className}`,
         {}
       );
       return response.data;
@@ -28,7 +28,7 @@ const api = {
   getThreats: async (region: string, taxonId: number) => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/getthreats?region=${region}&speciesId=${taxonId}`,
+        `https://artsvagt.fortunatodeangelis.dev/api/getthreats?region=${region}&speciesId=${taxonId}`,
         {}
       );
       return response.data;
