@@ -34,7 +34,14 @@ class IucnRedListService
             ],
         ]);
 
-        return json_decode($response->getBody()->getContents(), true);
+        $result = json_decode($response->getBody()->getContents(), true);
+        // find and remove from key 'result'global region
+        $key = array_search('global', array_column($result['results'], 'identifier'));
+        unset($result['results'][$key]);
+        $result['count']--;
+        $result['results'] = array_values($result['results']);
+        
+        return $result;
     }
 
     /**
