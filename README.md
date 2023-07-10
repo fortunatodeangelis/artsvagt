@@ -1,4 +1,5 @@
-![artsvagt lgo](https://github.com/fortunatodeangelis/artsvagt/assets/45572072/dcac2674-2376-4656-8b65-030a73cf6b2a)
+![artsvagt lgo](https://github.com/fortunatodeangelis/artsvagt/assets/45572072/9d4986d0-6094-4625-8242-08f1af30028b)
+
 
 **ArtSvagt** is a Danish word that translates to "species guard" in English. 🌿🐾
 
