@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-console.log(process);
 const api = {
   getRegions: async () => {
     try {
