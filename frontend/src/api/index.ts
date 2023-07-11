@@ -1,9 +1,10 @@
 import axios from 'axios';
 
+console.log(process);
 const api = {
   getRegions: async () => {
     try {
-      const response = await axios.get('https://artsvagt.fortunatodeangelis.dev/api/regions', {});
+      const response = await axios.get(`${process.env.API_URL}/regions`, {});
       return response.data;
     } catch (error) {
       return error;
@@ -17,7 +18,7 @@ const api = {
   ) => {
     try {
       const response = await axios.get(
-        `https://artsvagt.fortunatodeangelis.dev/api/getspecies?region=${region}&page=${page}&category=${category}&class=${className}`,
+        `${process.env.API_URL}/getspecies?region=${region}&page=${page}&category=${category}&class=${className}`,
         {}
       );
       return response.data;
@@ -28,7 +29,7 @@ const api = {
   getThreats: async (region: string, taxonId: number) => {
     try {
       const response = await axios.get(
-        `https://artsvagt.fortunatodeangelis.dev/api/getthreats?region=${region}&speciesId=${taxonId}`,
+        `${process.env.API_URL}/getthreats?region=${region}&speciesId=${taxonId}`,
         {}
       );
       return response.data;
