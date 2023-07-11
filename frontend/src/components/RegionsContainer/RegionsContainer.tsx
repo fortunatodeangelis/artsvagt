@@ -32,7 +32,7 @@ function RegionsContainer() {
       <Grid gutter={20} justify="center">
         {loading
           ? [...Array(4)].map((_, index) => (
-              <Grid.Col key={index} span={6}>
+              <Grid.Col key={index} md={6} sm={6}>
                 <Skeleton height={50} circle mb="xl" />
                 <Skeleton height={8} radius="xl" />
                 <Skeleton height={8} mt={6} radius="xl" />
@@ -40,7 +40,7 @@ function RegionsContainer() {
               </Grid.Col>
             ))
           : regions.map((region: RegionType) => (
-              <Grid.Col key={region.name} span={6}>
+              <Grid.Col key={region.name} md={6} sm={6}>
                 <Link
                   className={classes.link}
                   href={`/region/${region.identifier}`}

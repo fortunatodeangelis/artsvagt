@@ -11,7 +11,7 @@ const useFetchRegions = () => {
     const fetchRegions = async () => {
       try {
         const data = await api.getRegions();
-        setRegions(data.results);
+        setRegions(data);
       } catch (error) {
         setError('Error fetching regions');
       } finally {
