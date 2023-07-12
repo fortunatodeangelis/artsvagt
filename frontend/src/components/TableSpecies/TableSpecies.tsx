@@ -9,6 +9,7 @@ import {
   Button,
   Grid,
   Select,
+  ActionIcon,
 } from '@mantine/core';
 import { useState } from 'react';
 import useStyles from './TableSpecies.styles';
@@ -24,7 +25,7 @@ interface TableSpeciesProps {
 
 function TableSpecies({ region, handleOpenDrawer }: TableSpeciesProps) {
   const { classes, cx } = useStyles();
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [selectedClass, setSelectedClass] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const { data, loading, error } = useFetchSpecies(
@@ -57,7 +58,7 @@ function TableSpecies({ region, handleOpenDrawer }: TableSpeciesProps) {
   return (
     <Container>
       <Grid mb="md">
-        <Grid.Col span={4} md={6}>
+        <Grid.Col lg={12} md={12} sm={12} xs={12}>
           <Region
             name={region}
             identifier={region}
@@ -65,7 +66,7 @@ function TableSpecies({ region, handleOpenDrawer }: TableSpeciesProps) {
             readonly={true}
           />
         </Grid.Col>
-        <Grid.Col span={4} md={6}>
+        <Grid.Col md={6} sm={6}>
           <Select
             defaultValue={'all'}
             label="Select Category"
@@ -74,7 +75,7 @@ function TableSpecies({ region, handleOpenDrawer }: TableSpeciesProps) {
             onChange={(value) => setSelectedCategory(value ?? 'all')}
           />
         </Grid.Col>
-        <Grid.Col span={4} md={6}>
+        <Grid.Col md={6} sm={6}>
           <Select
             defaultValue={'all'}
             label="Select Class Name"
@@ -84,8 +85,9 @@ function TableSpecies({ region, handleOpenDrawer }: TableSpeciesProps) {
           />
         </Grid.Col>
       </Grid>
+      
       <ScrollArea h={500}>
-        <Table h={500} striped highlightOnHover withBorder>
+        <Table h={500} striped highlightOnHover>
           <thead className={classes.header}>
             <tr>
               <th>Class Name</th>
@@ -112,38 +114,35 @@ function TableSpecies({ region, handleOpenDrawer }: TableSpeciesProps) {
                     </td>
                   </tr>
                 ))
-              : data.result.map((species: SpeciesType, index: number) => (
+              : data.species.map((speciesValue: SpeciesType, index: number) => (
                   <tr key={index}>
                     <td>
-                      {classSpecies[species.class_name] +
+                      {classSpecies[speciesValue.class_name] +
                         ' ' +
-                        species.class_name}
+                        speciesValue.class_name}
                     </td>
-                    <td>{species.scientific_name}</td>
+                    <td>{speciesValue.scientific_name}</td>
                     <td>
                       <Badge
                         color={
-                          category[species.category]
-                            ? category[species.category]['color']
+                          category[speciesValue.category]
+                            ? category[speciesValue.category]['color']
                             : 'gray'
                         }
                         variant="outline"
                       >
-                        {category[species.category]
-                          ? category[species.category]['text']
-                          : species.category}
+                        {category[speciesValue.category]
+                          ? category[speciesValue.category]['text']
+                          : speciesValue.category}
                       </Badge>
                     </td>
                     <td>
-                      <Button
-                        variant="outline"
-                        leftIcon={<FileSearch size="1rem" />}
-                        onClick={() => {
-                          handleOpenDrawer && handleOpenDrawer(species.taxonid);
+                      <ActionIcon 
+                         onClick={() => {
+                          handleOpenDrawer &&
+                            handleOpenDrawer(speciesValue.taxonid);
                         }}
-                      >
-                        View Data
-                      </Button>
+                        variant="default"><FileSearch size="1rem" /></ActionIcon>
                     </td>
                   </tr>
                 ))}
@@ -152,13 +151,13 @@ function TableSpecies({ region, handleOpenDrawer }: TableSpeciesProps) {
       </ScrollArea>
       <Pagination
         size={'md'}
-        total={data.max_pages}
-        siblings={data.current_page + 1}
+        total={data.pages}
+        siblings={1}
         color="dark"
         mt="xl"
         withControls={false}
         defaultValue={1}
-        onChange={(value) => setPage(value - 1)}
+        onChange={(value) => setPage(value)}
       />
     </Container>
   );
