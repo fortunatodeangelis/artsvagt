@@ -4,3 +4,10 @@ export type SpeciesType = {
   scientific_name: string;
   category: string;
 };
+
+export type SpeciesTypeResponse = {
+  count: number;
+  species: SpeciesType[];
+  page: number;
+  pages: number;
+};

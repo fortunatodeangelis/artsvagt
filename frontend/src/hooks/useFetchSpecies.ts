@@ -1,8 +1,14 @@
 import { useEffect, useState } from 'react';
 import api from '../api';
+import { SpeciesType, SpeciesTypeResponse } from '@/types/SpeciesType';
 
-const useFetchSpecies = (region: string, page: number = 0, category: string, className: string) => {
-  const [data, setData] = useState<any>([]);
+const useFetchSpecies = (region: string, page: number = 1, category: string, className: string) => {
+  const [data, setData] = useState<SpeciesTypeResponse>({
+    count: 0,
+    species: [],
+    page: 0,
+    pages: 0,
+  });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
