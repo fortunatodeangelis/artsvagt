@@ -72,7 +72,10 @@ function TableSpecies({ region, handleOpenDrawer }: TableSpeciesProps) {
             label="Select Category"
             placeholder="Pick one"
             data={selectCategory}
-            onChange={(value) => setSelectedCategory(value ?? 'all')}
+            onChange={(value) => {
+              setPage(1);
+              setSelectedCategory(value ?? 'all');
+            }}
           />
         </Grid.Col>
         <Grid.Col md={6} sm={6}>
@@ -81,11 +84,14 @@ function TableSpecies({ region, handleOpenDrawer }: TableSpeciesProps) {
             label="Select Class Name"
             placeholder="Pick one"
             data={selectClassSpecies}
-            onChange={(value) => setSelectedClass(value ?? 'all')}
+            onChange={(value) => {
+              setPage(1);
+              setSelectedClass(value ?? 'all');
+            }}
           />
         </Grid.Col>
       </Grid>
-      
+
       <ScrollArea h={500}>
         <Table h={500} striped highlightOnHover>
           <thead className={classes.header}>
@@ -137,12 +143,15 @@ function TableSpecies({ region, handleOpenDrawer }: TableSpeciesProps) {
                       </Badge>
                     </td>
                     <td>
-                      <ActionIcon 
-                         onClick={() => {
+                      <ActionIcon
+                        onClick={() => {
                           handleOpenDrawer &&
                             handleOpenDrawer(speciesValue.taxonid);
                         }}
-                        variant="default"><FileSearch size="1rem" /></ActionIcon>
+                        variant="default"
+                      >
+                        <FileSearch size="1rem" />
+                      </ActionIcon>
                     </td>
                   </tr>
                 ))}
@@ -155,8 +164,9 @@ function TableSpecies({ region, handleOpenDrawer }: TableSpeciesProps) {
         siblings={1}
         color="dark"
         mt="xl"
+        value={page}
         withControls={false}
-        defaultValue={1}
+        defaultValue={page}
         onChange={(value) => setPage(value)}
       />
     </Container>
