@@ -30,6 +30,7 @@ To run the ArtSvagt application locally, follow these steps:
 - Install the dependencies: `composer install`.
 - Create a copy of the `.env.example` file and rename it to `.env`.
 - Generate an application key: `php artisan key:generate`.
+- Start the Built-in PHP development server: `php artisan serve`
 
 ### Frontend (Next.js)
 - Navigate to the frontend directory:  `cd frontend `.
